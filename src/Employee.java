@@ -9,7 +9,7 @@ public class Employee {
         if (firstName.trim().equals("") || lastName.trim().equals("") || middleName.trim().equals("")) {
             throw new IllegalArgumentException("неверно указаны фамилия имя отчество сотрудника!");
         }
-        if (departmentNumber < 1 || departmentNumber > 5) {
+        if (!isDepartmentCorrect(departmentNumber)) {
             throw new IllegalArgumentException("неверно указан отдел!");
         }
         if (salary < 1) {
@@ -49,7 +49,7 @@ public class Employee {
     }
 
     public void setDepartmentNumber(int departmentNumber) {
-        if (departmentNumber < 1 || departmentNumber > 5) {
+        if (!isDepartmentCorrect(departmentNumber)) {
             throw new IllegalArgumentException("неверно указан отдел!");
         }
         this.departmentNumber = departmentNumber;
@@ -71,4 +71,17 @@ public class Employee {
                 ", отдел №" + departmentNumber +
                 ", оклад: " + salary + " руб.";
     }
+
+    public String toStringWithoutDepartment() {
+        return lastName + " " +
+                firstName + " " +
+                middleName + " " +
+                ", табельный номер: " + ID +
+                ", оклад: " + salary + " руб.";
+    }
+
+    public static boolean isDepartmentCorrect(int departmentNumber) {
+        return departmentNumber >= 1 && departmentNumber <= 5;
+    } /*есть сомнения на счет корректности размещения в этом классе подобного метода.
+    Но куда еще его запихнуть я не знаю. Создавать из-за одного статического метода класс Department не хочется.*/
 }
