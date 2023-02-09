@@ -1,5 +1,6 @@
 public class Employee {
     static int numberOfEmployees;
+    static int nextEmployeeId = 1;
     final int ID;
     String firstName, middleName, lastName;
     int departmentNumber;
@@ -16,12 +17,12 @@ public class Employee {
             throw new IllegalArgumentException("неверно указан размер заработной платы!");
         }
         numberOfEmployees++;
-        this.firstName = firstName;
-        this.middleName = middleName;
-        this.lastName = lastName;
+        this.firstName = firstName.trim();
+        this.middleName = middleName.trim();
+        this.lastName = lastName.trim();
         this.departmentNumber = departmentNumber;
         this.salary = salary;
-        this.ID = numberOfEmployees;
+        this.ID = nextEmployeeId++;
     }
 
     public int getID() {
@@ -81,7 +82,11 @@ public class Employee {
     }
 
     public static boolean isDepartmentCorrect(int departmentNumber) {
-        return departmentNumber >= 1 && departmentNumber <= 5;
+        return departmentNumber >= 1 && departmentNumber <= (EmployeeBook.numberOfDepartments);
     } /*есть сомнения на счет корректности размещения в этом классе подобного метода.
     Но куда еще его запихнуть я не знаю. Создавать из-за одного статического метода класс Department не хочется.*/
+
+    public static void decreaseNumberOfEmployees() {
+        numberOfEmployees--;
+    }
 }
